@@ -4,6 +4,10 @@ import java.util.HashMap;
 
 public class ResultRight {
     private HashMap<BigDecimal, BigInteger> result;
+    public ResultRight()
+    {
+        result = new HashMap<>();
+    }
 
     public HashMap<BigDecimal, BigInteger> getResult() {
         return result;

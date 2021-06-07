@@ -3,6 +3,10 @@ import java.util.HashMap;
 
 public class ResultLeft {
     private HashMap<BigInteger, BigInteger> result;
+    public ResultLeft()
+    {
+        result = new HashMap<>();
+    }
 
     public HashMap<BigInteger, BigInteger> getResult() {
         return result;

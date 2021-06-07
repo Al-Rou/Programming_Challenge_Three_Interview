@@ -73,6 +73,14 @@ public class GMThree {
                     secondRes.setResult(discreteCurrencyBelowOne[i], quotient);
                 }
             }
+            for(BigInteger i : firstRes.getResult().keySet())
+            {
+                System.out.println(firstRes.getResult().get(i) + " x " + nameOfCurrencyAboveOne.get(i));
+            }
+            for(BigDecimal j : secondRes.getResult().keySet())
+            {
+                System.out.println(secondRes.getResult().get(j) + " x " + nameOfCurrencyBelowOne.get(j));
+            }
         }
     }
 }
