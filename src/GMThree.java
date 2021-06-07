@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 public class GMThree {
@@ -9,24 +10,32 @@ public class GMThree {
         BigDecimal pp = new BigDecimal(in.next());
         System.out.println("Enter the amount of cash: ");
         BigDecimal ch = new BigDecimal(in.next());
-        int[] discreteCurrency = new int[4];
-        discreteCurrency[0] = 50;
-        discreteCurrency[1] = 20;
-        discreteCurrency[2] = 10;
-        discreteCurrency[3] = 25;
-        HashMap<BigDecimal, String> nameOfCurrency = new HashMap<>();
-        nameOfCurrency.put(BigDecimal.valueOf(0.01), "Penny");
-        nameOfCurrency.put(BigDecimal.valueOf(0.05), "Nickel");
-        nameOfCurrency.put(BigDecimal.valueOf(0.1), "Dime");
-        nameOfCurrency.put(BigDecimal.valueOf(0.25), "Quarter");
-        nameOfCurrency.put(BigDecimal.valueOf(0.5), "Half");
-        nameOfCurrency.put(BigDecimal.valueOf(1.0), "Loonie");
-        nameOfCurrency.put(BigDecimal.valueOf(2.0), "Toonie");
-        nameOfCurrency.put(BigDecimal.valueOf(5.0), "Five");
-        nameOfCurrency.put(BigDecimal.valueOf(10.0), "Ten");
-        nameOfCurrency.put(BigDecimal.valueOf(20.0), "Twenty");
-        nameOfCurrency.put(BigDecimal.valueOf(50.0), "Fifty");
-        nameOfCurrency.put(BigDecimal.valueOf(100.0), "Hundred");
+        BigDecimal[] discreteCurrencyBelowOne = new BigDecimal[11];
+        discreteCurrency[0] = BigDecimal.valueOf(50.0);
+        discreteCurrency[1] = BigDecimal.valueOf(20.0);
+        discreteCurrency[2] = BigDecimal.valueOf(10.0);
+        discreteCurrency[3] = BigDecimal.valueOf(5.0);
+        discreteCurrency[4] = BigDecimal.valueOf(2.0);
+        discreteCurrency[5] = BigDecimal.valueOf(1.0);
+        discreteCurrency[6] = BigDecimal.valueOf(0.5);
+        discreteCurrency[7] = BigDecimal.valueOf(0.25);
+        discreteCurrency[8] = BigDecimal.valueOf(0.1);
+        discreteCurrency[9] = BigDecimal.valueOf(0.05);
+        discreteCurrency[10] = BigDecimal.valueOf(0.01);
+        HashMap<BigDecimal, String> nameOfCurrencyBelowOne = new HashMap<>();
+        nameOfCurrencyBelowOne.put(BigDecimal.valueOf(0.01), "Penny");
+        nameOfCurrencyBelowOne.put(BigDecimal.valueOf(0.05), "Nickel");
+        nameOfCurrencyBelowOne.put(BigDecimal.valueOf(0.1), "Dime");
+        nameOfCurrencyBelowOne.put(BigDecimal.valueOf(0.25), "Quarter");
+        nameOfCurrencyBelowOne.put(BigDecimal.valueOf(0.5), "Half");
+        HashMap<BigInteger, String> nameOfCurrencyAboveOne = new HashMap<>();
+        nameOfCurrencyAboveOne.put(BigInteger.valueOf(1), "Loonie");
+        nameOfCurrencyAboveOne.put(BigInteger.valueOf(2), "Toonie");
+        nameOfCurrencyAboveOne.put(BigInteger.valueOf(5), "Five");
+        nameOfCurrencyAboveOne.put(BigInteger.valueOf(10), "Ten");
+        nameOfCurrencyAboveOne.put(BigInteger.valueOf(20), "Twenty");
+        nameOfCurrencyAboveOne.put(BigInteger.valueOf(50), "Fifty");
+        nameOfCurrencyAboveOne.put(BigInteger.valueOf(100), "Hundred");
         BigDecimal difference = ch.subtract(pp);
         if (difference.compareTo(BigDecimal.valueOf(0.0)) < 0)
         {
@@ -38,7 +47,18 @@ public class GMThree {
         }
         else
         {
-            System.out.println("OK");
+            BigInteger left = difference.toBigInteger();
+            difference = difference.subtract(new BigDecimal(left));
+            BigInteger right = difference.multiply(BigDecimal.valueOf(100.0)).toBigInteger();
+            //System.out.println(left);
+            //System.out.println(right);
+            for (int i = 0; i < 6; i++)
+            {
+                if(left.divide(discreteCurrency[i]).compareTo(BigDecimal.valueOf(0.0)) != 0)
+                {
+                    BigDecimal quotient = difference.divide(discreteCurrency[i]);
+                }
+            }
         }
     }
 }
