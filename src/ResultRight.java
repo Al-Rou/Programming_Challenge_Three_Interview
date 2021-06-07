@@ -1,14 +1,15 @@
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 
 public class ResultRight {
-    private HashMap<BigInteger, BigInteger> result;
+    private HashMap<BigDecimal, BigInteger> result;
 
-    public HashMap<BigInteger, BigInteger> getResult() {
+    public HashMap<BigDecimal, BigInteger> getResult() {
         return result;
     }
 
-    public void setResult(BigInteger k, BigInteger v) {
+    public void setResult(BigDecimal k, BigInteger v) {
         result.put(k, v);
     }
 }

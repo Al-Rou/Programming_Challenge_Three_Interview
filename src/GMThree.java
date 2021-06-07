@@ -64,6 +64,15 @@ public class GMThree {
                 }
             }
             ResultRight secondRes = new ResultRight();
+            for (int i = 0; i < 5; i++)
+            {
+                if (right.divide(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger()).compareTo(BigInteger.valueOf(0)) != 0)
+                {
+                    BigInteger quotient = right.divide(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger());
+                    right = right.mod(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger());
+                    secondRes.setResult(discreteCurrencyBelowOne[i], quotient);
+                }
+            }
         }
     }
 }
