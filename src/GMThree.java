@@ -10,18 +10,19 @@ public class GMThree {
         BigDecimal pp = new BigDecimal(in.next());
         System.out.println("Enter the amount of cash: ");
         BigDecimal ch = new BigDecimal(in.next());
-        BigDecimal[] discreteCurrencyBelowOne = new BigDecimal[11];
-        discreteCurrency[0] = BigDecimal.valueOf(50.0);
-        discreteCurrency[1] = BigDecimal.valueOf(20.0);
-        discreteCurrency[2] = BigDecimal.valueOf(10.0);
-        discreteCurrency[3] = BigDecimal.valueOf(5.0);
-        discreteCurrency[4] = BigDecimal.valueOf(2.0);
-        discreteCurrency[5] = BigDecimal.valueOf(1.0);
-        discreteCurrency[6] = BigDecimal.valueOf(0.5);
-        discreteCurrency[7] = BigDecimal.valueOf(0.25);
-        discreteCurrency[8] = BigDecimal.valueOf(0.1);
-        discreteCurrency[9] = BigDecimal.valueOf(0.05);
-        discreteCurrency[10] = BigDecimal.valueOf(0.01);
+        BigInteger[] discreteCurrencyAboveOne = new BigInteger[6];
+        discreteCurrencyAboveOne[0] = BigInteger.valueOf(50);
+        discreteCurrencyAboveOne[1] = BigInteger.valueOf(20);
+        discreteCurrencyAboveOne[2] = BigInteger.valueOf(10);
+        discreteCurrencyAboveOne[3] = BigInteger.valueOf(5);
+        discreteCurrencyAboveOne[4] = BigInteger.valueOf(2);
+        discreteCurrencyAboveOne[5] = BigInteger.valueOf(1);
+        BigDecimal[] discreteCurrencyBelowOne = new BigDecimal[5];
+        discreteCurrencyBelowOne[0] = BigDecimal.valueOf(0.5);
+        discreteCurrencyBelowOne[1] = BigDecimal.valueOf(0.25);
+        discreteCurrencyBelowOne[2] = BigDecimal.valueOf(0.1);
+        discreteCurrencyBelowOne[3] = BigDecimal.valueOf(0.05);
+        discreteCurrencyBelowOne[4] = BigDecimal.valueOf(0.01);
         HashMap<BigDecimal, String> nameOfCurrencyBelowOne = new HashMap<>();
         nameOfCurrencyBelowOne.put(BigDecimal.valueOf(0.01), "Penny");
         nameOfCurrencyBelowOne.put(BigDecimal.valueOf(0.05), "Nickel");
@@ -52,13 +53,17 @@ public class GMThree {
             BigInteger right = difference.multiply(BigDecimal.valueOf(100.0)).toBigInteger();
             //System.out.println(left);
             //System.out.println(right);
+            ResultLeft firstRes = new ResultLeft();
             for (int i = 0; i < 6; i++)
             {
-                if(left.divide(discreteCurrency[i]).compareTo(BigDecimal.valueOf(0.0)) != 0)
+                if(left.divide(discreteCurrencyAboveOne[i]).compareTo(BigInteger.valueOf(0)) != 0)
                 {
-                    BigDecimal quotient = difference.divide(discreteCurrency[i]);
+                    BigInteger quotient = left.divide(discreteCurrencyAboveOne[i]);
+                    left = left.mod(discreteCurrencyAboveOne[i]);
+                    firstRes.setResult(discreteCurrencyAboveOne[i], quotient);
                 }
             }
+            ResultRight secondRes = new ResultRight();
         }
     }
 }
