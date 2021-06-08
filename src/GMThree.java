@@ -14,7 +14,7 @@ public class GMThree {
         System.out.println("Enter the amount of cash: ");
         //Taking the amount of cash received from the customer
         BigDecimal ch = new BigDecimal(in.next());
-
+        //To calculate execution time of the program, just for fun!
         long startTime = System.nanoTime();
         System.out.println("Start Time is " + startTime);
         //The currency exists in these numbers for more than one Dollar
@@ -87,8 +87,7 @@ public class GMThree {
                     }
                     long endTime = System.nanoTime();
                     long dif = (endTime - startTime)/1000000;
-                    //System.out.println("End Time for the first thread is " + endTime);
-                    System.out.println("End Time for the first thread is " + dif);
+                    System.out.println("End Time for the first thread is " + dif + " (ms)");
                 }
             }).start();
             /*ResultLeft firstRes = new ResultLeft();
@@ -120,8 +119,7 @@ public class GMThree {
                     }
                     long endTime = System.nanoTime();
                     long dif = (endTime - startTime)/1000000;
-                    //System.out.println("End Time for the second thread is " + endTime);
-                    System.out.println("End Time for the second thread is " + dif);
+                    System.out.println("End Time for the second thread is " + dif + "(ms)");
                 }
             }).start();
             /*for (int i = 0; i < 5; i++)
@@ -137,8 +135,8 @@ public class GMThree {
             /*for(BigInteger i : firstRes.getResult().keySet())
             {
                 System.out.println(firstRes.getResult().get(i) + " x " + nameOfCurrencyAboveOne.get(i));
-            }*/
-            /*for(BigDecimal j : secondRes.getResult().keySet())
+            }
+            for(BigDecimal j : secondRes.getResult().keySet())
             {
                 System.out.println(secondRes.getResult().get(j) + " x " + nameOfCurrencyBelowOne.get(j));
             }*/
