@@ -87,7 +87,7 @@ public class GMThree {
                     }
                     long endTime = System.nanoTime();
                     long dif = (endTime - startTime)/1000000;
-                    System.out.println("End Time for the first thread is " + dif + " (ms)");
+                    System.out.println("Run Time for the first thread is " + dif + " (ms)");
                 }
             }).start();
             /*ResultLeft firstRes = new ResultLeft();
@@ -119,7 +119,7 @@ public class GMThree {
                     }
                     long endTime = System.nanoTime();
                     long dif = (endTime - startTime)/1000000;
-                    System.out.println("End Time for the second thread is " + dif + "(ms)");
+                    System.out.println("Run Time for the second thread is " + dif + " (ms)");
                 }
             }).start();
             /*for (int i = 0; i < 5; i++)
