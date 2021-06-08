@@ -3,6 +3,8 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class GMThree {
+    static BigInteger left;
+    static BigInteger right;
     public static void main(String[] args)
     {
         System.out.println("Enter the amount of purchase: ");
@@ -12,6 +14,9 @@ public class GMThree {
         System.out.println("Enter the amount of cash: ");
         //Taking the amount of cash received from the customer
         BigDecimal ch = new BigDecimal(in.next());
+
+        long startTime = System.nanoTime();
+        System.out.println("Start Time is " + startTime);
         //The currency exists in these numbers for more than one Dollar
         BigInteger[] discreteCurrencyAboveOne = new BigInteger[6];
         discreteCurrencyAboveOne[0] = BigInteger.valueOf(50);
@@ -58,11 +63,35 @@ public class GMThree {
         {
             //Numbers on the left side of and the right side of the point are separated and kept as BigIntegers
             //So, we get rid of the point and simply work with BigIntegers in order to use mod operation
-            BigInteger left = difference.toBigInteger();
+            left = difference.toBigInteger();
             difference = difference.subtract(new BigDecimal(left));
-            BigInteger right = difference.multiply(BigDecimal.valueOf(100.0)).toBigInteger();
-            //Left side of the point is treated
+            right = difference.multiply(BigDecimal.valueOf(100.0)).toBigInteger();
             ResultLeft firstRes = new ResultLeft();
+            ResultRight secondRes = new ResultRight();
+            //Left side of the point is treated
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if(left.divide(discreteCurrencyAboveOne[i]).compareTo(BigInteger.valueOf(0)) != 0)
+                        {
+                            BigInteger quotient = left.divide(discreteCurrencyAboveOne[i]);
+                            left = left.mod(discreteCurrencyAboveOne[i]);
+                            firstRes.setResult(discreteCurrencyAboveOne[i], quotient);
+                        }
+                    }
+                    for(BigInteger i : firstRes.getResult().keySet())
+                    {
+                        System.out.println(firstRes.getResult().get(i) + " x " + nameOfCurrencyAboveOne.get(i));
+                    }
+                    long endTime = System.nanoTime();
+                    long dif = (endTime - startTime)/1000000;
+                    //System.out.println("End Time for the first thread is " + endTime);
+                    System.out.println("End Time for the first thread is " + dif);
+                }
+            }).start();
+            /*ResultLeft firstRes = new ResultLeft();
             for (int i = 0; i < 6; i++)
             {
                 if(left.divide(discreteCurrencyAboveOne[i]).compareTo(BigInteger.valueOf(0)) != 0)
@@ -71,10 +100,31 @@ public class GMThree {
                     left = left.mod(discreteCurrencyAboveOne[i]);
                     firstRes.setResult(discreteCurrencyAboveOne[i], quotient);
                 }
-            }
+            }*/
             //Right side of the point is treated
-            ResultRight secondRes = new ResultRight();
-            for (int i = 0; i < 5; i++)
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (right.divide(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger()).compareTo(BigInteger.valueOf(0)) != 0)
+                        {
+                            BigInteger quotient = right.divide(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger());
+                            right = right.mod(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger());
+                            secondRes.setResult(discreteCurrencyBelowOne[i], quotient);
+                        }
+                    }
+                    for(BigDecimal j : secondRes.getResult().keySet())
+                    {
+                        System.out.println(secondRes.getResult().get(j) + " x " + nameOfCurrencyBelowOne.get(j));
+                    }
+                    long endTime = System.nanoTime();
+                    long dif = (endTime - startTime)/1000000;
+                    //System.out.println("End Time for the second thread is " + endTime);
+                    System.out.println("End Time for the second thread is " + dif);
+                }
+            }).start();
+            /*for (int i = 0; i < 5; i++)
             {
                 if (right.divide(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger()).compareTo(BigInteger.valueOf(0)) != 0)
                 {
@@ -82,16 +132,16 @@ public class GMThree {
                     right = right.mod(discreteCurrencyBelowOne[i].multiply(BigDecimal.valueOf(100.0)).toBigInteger());
                     secondRes.setResult(discreteCurrencyBelowOne[i], quotient);
                 }
-            }
+            }*/
             //The result is printed out
-            for(BigInteger i : firstRes.getResult().keySet())
+            /*for(BigInteger i : firstRes.getResult().keySet())
             {
                 System.out.println(firstRes.getResult().get(i) + " x " + nameOfCurrencyAboveOne.get(i));
-            }
-            for(BigDecimal j : secondRes.getResult().keySet())
+            }*/
+            /*for(BigDecimal j : secondRes.getResult().keySet())
             {
                 System.out.println(secondRes.getResult().get(j) + " x " + nameOfCurrencyBelowOne.get(j));
-            }
+            }*/
         }
     }
 }
